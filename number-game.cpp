@@ -4,12 +4,19 @@
 #include <vector>
 
 using namespace std;
-
+void print_guess(int, vector <int>);
 int main()
 {
     vector <int> hist_vect, int_vect, user_vect, user_arr_temp, int_arr_temp;
     int start_count = 0, digit = 0, user_int, place_count, occ_count;
     int num;
+    char yorn;
+    cout << "Logic based number placement game\n\n";
+    init:
+    hist_vect.clear(); int_vect.clear(); user_vect.clear(); user_arr_temp.clear(); int_arr_temp.clear();
+    start_count = digit = user_int = place_count = occ_count = num = 0;
+    yorn = '\0';
+
     cout << "Enter the number of digits : ";
     cin >> num;
     srand(time(0));
@@ -23,20 +30,7 @@ int main()
         int_vect.push_back(push);
         //cout << int_vect[i] ;
     }
-    //cout <<  "\n\n\n\n\n\n\n\n\n\n\n";
     start:
-    if(start_count)
-    {
-        for (auto i = hist_vect.begin(); i != hist_vect.end(); ++i) 
-        {
-            cout << "\n   " << *i;
-            ++i;
-            cout << "   " << *i;
-            ++i;
-            cout << "-" << *i;
-        }
-    }
-
     start_count++;
     cout << "\n\nEnter " << num << " digit number : ";
     cin >> user_int;
@@ -53,7 +47,7 @@ int main()
     }
     else
     {
-        cout << " x x x -- Enter four digit  -- x x x \n";
+        cout << " x x x -- Enter "<< num <<" digit  -- x x x \n";
         goto start;
     }
     //change to vector
@@ -81,7 +75,6 @@ int main()
             }
         }
     }
-    //cout << "Place count : " << place_count << "\n";
     hist_vect.push_back(place_count);
 
     //check for occurances
@@ -93,22 +86,48 @@ int main()
                 if(int_vect[i] == user_vect[j])
                 {
                     occ_count++;
-                   // cout << "\n" << i << "--"<< int_vect[i] << " "<< j << "--" << user_vect[j] << "\n";
                     user_vect[j] = 0;
                     break;
                 }
             }
         }
-   // cout << "Occurance count : " << occ_count << "\n";
     }
     hist_vect.push_back(occ_count);
     if(place_count == num)
     {
-        cout << "Correct\n";
+        print_guess(start_count, hist_vect);
+        cout << "\nCorrect\n";
+        cout << "Want to play again (y/n)? ";
+        cin >> yorn;
+        if (yorn == 'y')
+        {
+            goto init;
+        }
+        else
+        {
+            return 0;
+        }
     }
     else
     {
+        print_guess(start_count, hist_vect);
         goto start;
     }
     return 0;
+}
+
+void print_guess(int start_count, vector <int> hist_vect)
+{
+    if(start_count)
+    {
+        cout << "\n  Guess  Correct Placement - Digits present";
+        for (auto i = hist_vect.begin(); i != hist_vect.end(); ++i) 
+        {
+            cout << "\n   " << *i;
+            ++i;
+            cout << "       " << *i;
+            ++i;
+            cout << " - " << *i;
+        }
+    }
 }

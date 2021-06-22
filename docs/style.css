@@ -1,0 +1,11 @@
+body, html {
+  height: 99%;
+  display: grid;
+  background-color: #cfbcbc79;
+}
+.center-me {
+  margin: auto;
+  font-size: 24px;
+  font-family: Bookerly;
+}
+

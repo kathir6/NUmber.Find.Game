@@ -1,1 +1,3 @@
-# Number_Find_Game
+# Number Find Game
+
+Logic based number placement game
